@@ -24,7 +24,6 @@ app.use("/api/movies", moviesRoute);
 app.use("/api/lists", listsRoute);
 
 
-
 app.listen(5000, () => {
 	console.log("listening on port 5000");
 });
