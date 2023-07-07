@@ -1,12 +1,37 @@
 import { InfoOutlined, PlayArrow } from "@mui/icons-material";
 import "./featured.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/api"
+
 
 function Featured({ type }) {
+
+    const [content, setContent] = useState({});
+
+    useEffect(() => {
+        const getRandomContent = async () => {
+            try {
+                const newUrl = type ? `${API_URL}/movies/random?type=${type}` : `${API_URL}/movies/random`;
+                const res = await axios.get(newUrl, {
+                    headers: {
+                        Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4ODUwNjYzOCwiZXhwIjoxNjg4OTM4NjM4fQ.7IktPwb_Y0a47Ri6SbKUvO0lEYalswT2Az7xrQkvY-4"
+                    }
+                });
+                setContent(res.data[0]);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getRandomContent();
+    }, [type])
+
   return (
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movie" ? "Movies" : "Series"}</span>
+          <span>{type === "movies" ? "Movies" : "Series"}</span>
           <select name="genre" id="genre">
             <option>Genre</option>
             <option value="adventure">Adventure</option>
@@ -27,19 +52,17 @@ function Featured({ type }) {
       )}
 
       <img
-        src="https://occ-0-64-58.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABeMZkNnHuV8Y6pFrWEjxEZG8xvjo-JqEJzrBVbBo76pxXC9QOCBcJZZU0KjD8hONdRR6x9QAGgpUZCLr0ljFcZlBS1gjBo-Y5D6-.jpg?r=570"
-        alt="wednesday-img"
+        src={content.img}
+        alt="featured-img"
       ></img>
 
       <div className="info">
         <img
-          src={require("./wednesday-banner.png")}
-          alt="wednesday-banner"
+          src={content.imgTitle}
+          alt="featured-title"
         ></img>
         <span className="desc">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-          placeat deleniti saepe maiores tempora nam ratione totam molestiae
-          sint qui, delectus vel soluta ipsum sit eaque? Ab sed neque delectus.
+            {content.desc}
         </span>
         <div className="buttons">
           <button className="play">

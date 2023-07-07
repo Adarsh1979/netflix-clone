@@ -10,8 +10,6 @@ function verify(req, res, next) {
                 res.status(403).json("Token is not valid")
             }
             req.user = user;
-            console.log("verified");
-            console.log(req.user);
             next();
         })
     }
