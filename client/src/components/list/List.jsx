@@ -7,6 +7,8 @@ function List({list}) {
 
     const [isMoved, setIsMoved] = useState(false);
     const [slideCount, setSlideCount] = useState(0);
+    const [clickLimit, setClickLimit] = useState(window.innerWidth / 225);
+    
 
     const listRef = useRef()
 
@@ -22,7 +24,7 @@ function List({list}) {
             listRef.current.style.transform = `translateX(${235 + distance}px)`
         }
 
-        if (direction === "right" && slideCount < 5) {
+        if (direction === "right" && slideCount < 10-clickLimit) {
             setSlideCount(slideCount + 1)
             listRef.current.style.transform = `translateX(${-235 + distance}px)`
         }

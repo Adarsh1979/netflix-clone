@@ -15,11 +15,10 @@ function Home({type}) {
         const getRandomLists = async () => {
             try {
                 const newUrl = type ? `${API_URL}/lists?type=${type}${genre ? "&genre=" + genre : ""}` : `${API_URL}/lists`;
-                console.log(newUrl);
                 const res = await axios.get(newUrl,
                     {
                         headers: {
-                            Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4ODUwNjYzOCwiZXhwIjoxNjg4OTM4NjM4fQ.7IktPwb_Y0a47Ri6SbKUvO0lEYalswT2Az7xrQkvY-4"
+                            Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MTQxMTM2MSwiZXhwIjoxNjkxODQzMzYxfQ.Y53xow-a3oV5vLflFQS-LGELxLpHNPA5ejlfTnLP7fc"
                         }
                     }
                 )
@@ -35,7 +34,7 @@ function Home({type}) {
   return (
     <div className="home">
         <Navbar />
-        <Featured type={type} />
+        <Featured type={type} setGenre={setGenre} />
         {
             lists.map( list => (
                 <List list={list}

@@ -14,10 +14,13 @@
             justify-content: space-between;
 
             .logo {
+                z-index: 1;
                 height: 50px;
+                cursor: pointer;
             }
 
             .loginbutton {
+                z-index: 1;
                 background-color: #e50914;
                 border: none;
                 color: white;

@@ -5,7 +5,7 @@ import axios from "axios";
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 
 
-const API_URL = "http://localhost:5000/api"
+const API_URL = "http://localhost:5000/api"     // becoz I wasnt able to send movies data from prev page😞😞😞
 
 function ListItem({ index, item }) {
     const [isHovered, setIsHovered] = useState(false);

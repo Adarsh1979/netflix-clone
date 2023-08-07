@@ -6,7 +6,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/api"
 
 
-function Featured({ type }) {
+function Featured({ type, setGenre }) {
 
     const [content, setContent] = useState({});
 
@@ -16,7 +16,7 @@ function Featured({ type }) {
                 const newUrl = type ? `${API_URL}/movies/random?type=${type}` : `${API_URL}/movies/random`;
                 const res = await axios.get(newUrl, {
                     headers: {
-                        Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4ODUwNjYzOCwiZXhwIjoxNjg4OTM4NjM4fQ.7IktPwb_Y0a47Ri6SbKUvO0lEYalswT2Az7xrQkvY-4"
+                        Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MTQxMTM2MSwiZXhwIjoxNjkxODQzMzYxfQ.Y53xow-a3oV5vLflFQS-LGELxLpHNPA5ejlfTnLP7fc"
                     }
                 });
                 setContent(res.data[0]);
@@ -32,9 +32,9 @@ function Featured({ type }) {
       {type && (
         <div className="category">
           <span>{type === "movies" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          <select name="genre" id="genre" onChange={(e) => setGenre(e.target.value)} >
             <option>Genre</option>
-            <option value="adventure">Adventure</option>
+            <option value="action">Action</option>
             <option value="comedy">Comedy</option>
             <option value="crime">Crime</option>
             <option value="fantasy">Fantasy</option>
@@ -59,7 +59,7 @@ function Featured({ type }) {
       <div className="info">
         <img
           src={content.imgTitle}
-          alt="featured-title"
+          alt="title-img"
         ></img>
         <span className="desc">
             {content.desc}

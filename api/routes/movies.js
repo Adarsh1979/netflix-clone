@@ -98,7 +98,7 @@ router.get("/random", verify, async (req, res) => {
 });
 
 
-// GET ALL USERS
+// GET ALL Movies
 
 router.get("/", verify, async (req, res) => {
     if(req.user.isAdmin) {
@@ -114,4 +114,4 @@ router.get("/", verify, async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router;    
