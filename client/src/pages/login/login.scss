@@ -48,7 +48,7 @@
                 height: 40px;
                 border-radius: 5px;
                 background-color: rgb(88, 88, 88);
-                color: black;
+                color: white;
                 padding-left: 10px;
 
                 &::placeholder {
@@ -73,6 +73,9 @@
             b {
                 color: white;
                 cursor: pointer;
+                &:hover {
+                    text-decoration: underline;
+                }
             }
 
         }

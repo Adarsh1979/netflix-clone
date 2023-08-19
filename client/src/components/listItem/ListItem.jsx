@@ -2,20 +2,23 @@ import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined, } from "@mui/
 import { useEffect, useState } from "react";
 import "./listItem.scss";
 import axios from "axios";
-import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
-
-
-const API_URL = "http://localhost:5000/api"     // becoz I wasnt able to send movies data from prev page😞😞😞
+import { Link } from 'react-router-dom';
+import { useContext } from "react";
+import { AuthContext } from "../../authContext/AuthContext";
+import {API_URL} from "../../baseUrl";
 
 function ListItem({ index, item }) {
     const [isHovered, setIsHovered] = useState(false);
     const [movie, setMovie] = useState({});
+    const {user} = useContext(AuthContext);
     
     useEffect(() => {
         
         const getMovie = async () => {
             try {
-                const res = await axios.get(`${API_URL}/movies/find/${item}`)
+                const res = await axios.get(`${API_URL}/movies/find/${item}`, {
+                    headers: { Token: `Bearer ${user.accessToken}` },
+                  });
                 setMovie(res.data);
             } catch (err) {
                 console.log(err);
@@ -54,11 +57,11 @@ function ListItem({ index, item }) {
                                 <span>{movie.title}</span>
                                 <span className="limit">{movie.limit}</span>
                                 <span>{movie.year}</span>
+                                <div className="genre">{movie.genre}</div>
                             </div>
                             <div className="desc">
                                 {movie.desc}
                             </div>
-                            <div className="genre">{movie.genre}</div>
                         </div>
                     </>
                 )}

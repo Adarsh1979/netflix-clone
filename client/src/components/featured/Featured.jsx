@@ -2,73 +2,63 @@ import { InfoOutlined, PlayArrow } from "@mui/icons-material";
 import "./featured.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:5000/api"
-
+import { AuthContext } from "../../authContext/AuthContext";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { API_URL } from "../../baseUrl";
 
 function Featured({ type, setGenre }) {
+  const [content, setContent] = useState({});
+  const { user } = useContext(AuthContext);
 
-    const [content, setContent] = useState({});
-
-    useEffect(() => {
-        const getRandomContent = async () => {
-            try {
-                const newUrl = type ? `${API_URL}/movies/random?type=${type}` : `${API_URL}/movies/random`;
-                const res = await axios.get(newUrl, {
-                    headers: {
-                        Token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODU3ZGU5NGE1ZWIyNzdiOTM5MDExMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MTQxMTM2MSwiZXhwIjoxNjkxODQzMzYxfQ.Y53xow-a3oV5vLflFQS-LGELxLpHNPA5ejlfTnLP7fc"
-                    }
-                });
-                setContent(res.data[0]);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        getRandomContent();
-    }, [type])
+  useEffect(() => {
+    const getRandomContent = async () => {
+      try {
+        const newUrl = type
+          ? `${API_URL}/movies/random?type=${type}`
+          : `${API_URL}/movies/random`;
+        const res = await axios.get(newUrl, {
+          headers: { Token: `Bearer ${user.accessToken}` },
+        });
+        setContent(res.data[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getRandomContent();
+  }, [type, user.accessToken]);
 
   return (
     <div className="featured">
       {type && (
         <div className="category">
           <span>{type === "movies" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre" onChange={(e) => setGenre(e.target.value)} >
+          <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option>Genre</option>
             <option value="action">Action</option>
             <option value="comedy">Comedy</option>
             <option value="crime">Crime</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="historical">Historical</option>
+            <option value="history">Historical</option>
             <option value="horror">Horror</option>
-            <option value="romance">Romance</option>
-            <option value="sci-fi">Sci-fi</option>
-            <option value="thriller">Thriller</option>
-            <option value="western">Western</option>
-            <option value="animation">Animation</option>
-            <option value="drama">Drama</option>
-            <option value="documentry">Documentry</option>
           </select>
         </div>
       )}
-
-      <img
-        src={content.img}
-        alt="featured-img"
-      ></img>
+      <img src={content.img} alt="featured-img"></img>
 
       <div className="info">
-        <img
-          src={content.imgTitle}
-          alt="title-img"
-        ></img>
-        <span className="desc">
-            {content.desc}
-        </span>
+        <img src={content.imgTitle} alt="title-img"></img>
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
-          <button className="play">
-            <PlayArrow />
-            <span>Play</span>
-          </button>
+          <Link to={`/watch?movie=${content._id}`}>
+            <button className="play">
+              <PlayArrow />
+              <span>Play</span>
+            </button>
+          </Link>
           <button className="more">
             <InfoOutlined />
             <span>More Info</span>

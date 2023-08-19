@@ -1,6 +1,6 @@
 import "./widgetSm.css";
 import { Visibility } from "@material-ui/icons";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/api";
@@ -29,7 +29,7 @@ export default function WidgetSm() {
 			<span className="widgetSmTitle">New Join Members</span>
 			<ul className="widgetSmList">
 				{newUsers.map((user) => (
-					<li className="widgetSmListItem">
+					<li key={user._id} className="widgetSmListItem">
 						<img
 							src={user.profilePic || "https://www.pngmart.com/files/22/User-Avatar-Profile-PNG.png"}
 							alt=""

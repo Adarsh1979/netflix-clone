@@ -9,7 +9,6 @@
   z-index: 999;
   background: linear-gradient(to top, transparent 0%, rgb(0, 0, 0, 0.3) 50%);
 
-
   &.scrolled {
     background-color: var(--main-color);
   }
@@ -24,14 +23,10 @@
     .left {
       display: flex;
       align-items: center;
-      
+
       img {
         height: 30px;
         margin-right: 40px;
-
-        @include mobile {
-          display: none;
-        }
       }
       span {
         margin-right: 20px;
@@ -40,9 +35,12 @@
         @include tablet {
           display: none;
         }
-        
+
         &.navbarmainLinks {
           @include tablet {
+            display: block;
+          }
+          @include mobile {
             display: block;
           }
         }
@@ -56,6 +54,17 @@
       .icon {
         margin: 0px 15px;
         cursor: pointer;
+
+        &.mobileExclude {
+          @include mobile {
+            display: none;
+          }
+        }
+      }
+      .proPic {
+        @include mobile {
+          display: none;
+        }
       }
       img {
         height: 30px;
@@ -69,6 +78,12 @@
           display: none;
           background-color: var(--main-color);
           border-radius: 5px;
+
+          span {
+            &:hover {
+              text-decoration: underline;
+            }
+          }
         }
 
         span {

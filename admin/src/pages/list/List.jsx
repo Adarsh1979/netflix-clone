@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
 import {} from "./list.css";
-import { Publish } from "@material-ui/icons";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-const API_URL = "http://localhost:5000/api"; // becoz I wasnt able to send movies data from prev page😞😞😞
+import { useState } from "react";
 
 export default function List() {
-  const listId = window.location.pathname.split("/").pop();
+  // const listId = window.location.pathname.split("/").pop();
 
-  const [list, setList] = useState({});
+  const [list] = useState({});
 
   // useEffect(() => {
   //   const getMovie = async () => {

@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./register.scss";
+import {API_URL} from "../../baseUrl";
 
 function Register() {
-  const API_URL = "http://localhost:5000/api";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +24,7 @@ function Register() {
       await axios.post(`${API_URL}/auth/register`, {email, username, password});
       navigate("/login");
     } catch (err) {
-      console.log(err);
+      alert("User Already Exists, Please Login");
     }
   };
 
@@ -38,7 +38,7 @@ function Register() {
         <div className="wrapper">
           <img
             className="logo"
-            src={require("../../components/navbar/netflix-logo.png")}
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1200px-Netflix_2015_logo.svg.png"
             alt="netflix-logo"
           />
           <button className="loginbutton" onClick={handleClick}>Sign In</button>
